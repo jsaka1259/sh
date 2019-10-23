@@ -8,7 +8,8 @@ static void debug_get_cmd(cmd_t *cmd) {
   fprintf(stdout, "\e[33m");
   fprintf(stdout, "[%s]:\n", __func__);
   while (cmd->argv[i] != NULL) {
-    fprintf(stdout, "%2ld: %s\n", i, cmd->argv[i]);
+    fprintf(stdout, "%2ld: %s (%02ld)\n",
+        i, cmd->argv[i], strlen(cmd->argv[i]));
     i++;
   }
   fprintf(stdout, "\e[m");
