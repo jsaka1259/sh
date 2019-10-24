@@ -7,17 +7,19 @@ static void debug_get_cmd(cmd_t *cmd) {
 
   fprintf(stdout, "\e[33m");
   fprintf(stdout, "[%s]:\n", __func__);
+  fprintf(stdout, "argc: %d\n", cmd->argc);
   while (cmd->argv[i] != NULL) {
-    fprintf(stdout, "%2ld: %s (%02ld)\n",
+    fprintf(stdout, "%4ld: %s (%ld)\n",
         i, cmd->argv[i], strlen(cmd->argv[i]));
     i++;
   }
   fprintf(stdout, "\e[m");
 }
 
-cmd_t *get_cmd(char *line_buf) {
+cmd_t *get_cmd(void) {
   const char *delimiter = " \t";
-  char       *p;
+  char       *line_buf  = NULL;
+  char       *p         = NULL;
   size_t      nopt      = OPT_COEF;
   cmd_t      *cmd;
 
@@ -25,6 +27,7 @@ cmd_t *get_cmd(char *line_buf) {
   cmd->argc = 0;
   cmd->argv = xmalloc(sizeof(*cmd->argv) * nopt);
 
+  line_buf = xmalloc(LINE_BUF_SIZE);
   input(line_buf);
   p = strtok(line_buf, delimiter);
 
@@ -40,6 +43,9 @@ cmd_t *get_cmd(char *line_buf) {
     strcpy(cmd->argv[cmd->argc++], p);
   }
   cmd->argv[cmd->argc] = NULL;
+
+  free(line_buf);
+  line_buf = NULL;
 
   debug_get_cmd(cmd);
 

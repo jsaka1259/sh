@@ -13,6 +13,6 @@ typedef struct {
   char **argv;
 } cmd_t;
 
-extern cmd_t *get_cmd(char *line_buf);
+extern cmd_t *get_cmd(void);
 
 #endif

@@ -3,20 +3,17 @@
 #define PROMPT "$ "
 
 int main(int argc, char **argv) {
-  char  *line_buf = NULL;
-  cmd_t *cmd      = NULL;
-
+  cmd_t *cmd = NULL;
 
   while (1) {
     fputs(PROMPT, stdout);
 
-    line_buf = xmalloc(LINE_BUF_SIZE);
-    cmd = get_cmd(line_buf);
+    cmd = get_cmd();
 
-    free(line_buf);
     while (!cmd->argv)
       free(cmd->argv);
     free(cmd);
+    cmd = NULL;
   }
 
   return 0;

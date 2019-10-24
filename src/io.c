@@ -13,7 +13,7 @@ static void debug_input(char *line_buf) {
       fputs(" ", stdout);
     fprintf(stdout, "%02x ", line_buf[i]);
   }
-  fprintf(stdout, "\nstr%*s%s (%02ld)\n",
+  fprintf(stdout, "\nstr%*s%s (%ld)\n",
       7, "", line_buf, strlen(line_buf));
   fprintf(stdout, "\e[m");
 }
